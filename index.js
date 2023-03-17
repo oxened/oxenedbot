@@ -1,6 +1,6 @@
 const { Client, GatewayIntentBits, Collection, Events, REST, Routes, ActivityType, SlashCommandBuilder } = require('discord.js')
 const { token, clientid } = require("./config.json")
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
 const fs = require('node:fs');
 const path = require('node:path');
 const { inspect }  = require('util');
@@ -32,14 +32,14 @@ client.on('ready', async () => {
 	client.user.setPresence({
 		status: 'idle',
 		activities: [{
-			name: "ок и",
+			name: "э ну",
 			type: ActivityType.Playing,
 		}]
 	})
 	try {
-		console.log("хахвхвха ну типо э");
+		console.log("обновление команд");
 		await rest.put(Routes.applicationCommands(clientid), { body: commands })
-		console.log("всё.");
+		console.log("обновление команд завершено :wtf2:");
 	} catch(error) { console.error(error); }
 })
 
@@ -58,7 +58,7 @@ client.on('interactionCreate', async (interaction, message, user) => {
 	}
 	if(interaction.commandName == 'eval') {
 		if(interaction.user.id != 530377558508699659) {
-			await interaction.reply("бёже бёт");
+			await interaction.reply("В иркутске есть автобусы, в которые можно сесть, и подумать, почему вы живёте в иркутске. А ведь действительно, иркутска же не существует. Погодите.");
 			return;
 		}
 		let res;
@@ -72,7 +72,7 @@ client.on('interactionCreate', async (interaction, message, user) => {
 })
 
 process.on('uncaughtException', (err) => {
-	console.log(err);
+	console.error(err);
 })
 
 client.login(token);
