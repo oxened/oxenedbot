@@ -54,7 +54,7 @@ client.on('interactionCreate', async (interaction, message, user) => {
 
 	if(interaction.commandName == 'ban') {
 		const loshped = interaction.options.getUser('user')
-		if(loshped == '530377558508699659') { 
+		if(loshped == '530377558508699659') {
 			await interaction.reply("Вы не можете забанить создателя сервера.");
 		} else if(loshped == '1023594263176564878') {
 			await interaction.reply("маму свою забань мудила");
@@ -76,9 +76,15 @@ client.on('interactionCreate', async (interaction, message, user) => {
 		} catch(error) { res = error }
 		await interaction.editReply(`\`\`\`js\n${inspect(res, { depth: 0 }).slice(0, 1900)}\n\`\`\``);
 	}
-	
+
 	if(interaction.commandName == 'pc') {
-		// TODO
+        let answer = '';
+        await fetch("https://pointercrate.com/api/v2/demons/listed?limit=10").then(res => res.json()).then((top) => {
+            for (let pos = 0; pos < top.length; pos++) {
+                answer = answer + `${pos + 1}) ${top[pos].name} | Id: ${top[pos].level_id}\n`
+            }
+        })
+        await interaction.reply(answer)
 	}
 })
 
