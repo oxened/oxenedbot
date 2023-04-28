@@ -24,7 +24,12 @@ const eval_ = new SlashCommandBuilder()
 		.setDescription("...")
 		.setRequired(true)
 	)
-const commands = [ban, eval_]
+const pc = new SlashCommandBuilder()
+	.setName("pc")
+	.setDescription("pointercrate")
+const commands = [ban, eval_, pc]
+
+let loshara = ["1043211191067103263", "530377558508699659"]
 
 client.on('ready', async () => {
 	console.log(client.user.tag);
@@ -56,8 +61,10 @@ client.on('interactionCreate', async (interaction, message, user) => {
 		}
 		await interaction.reply(`Пользователь ${interaction.options.getUser('user')} был забанен. <:ralsei_wtf:1084577747063545886> <a:AU_Z:1067782077065478266>`);
 	}
+
 	if(interaction.commandName == 'eval') {
-		if(interaction.user.id != 530377558508699659) {
+		let mamatvoya = interaction.user.id;
+		if(!loshara.includes(mamatvoya)) {
 			await interaction.reply("В иркутске есть автобусы, в которые можно сесть, и подумать, почему вы живёте в иркутске. А ведь действительно, иркутска же не существует. Погодите.");
 			return;
 		}
@@ -69,10 +76,20 @@ client.on('interactionCreate', async (interaction, message, user) => {
 		} catch(error) { res = error }
 		await interaction.editReply(`\`\`\`js\n${inspect(res, { depth: 0 }).slice(0, 1900)}\n\`\`\``);
 	}
+	
+	if(interaction.commandName == 'pc') {
+		// TODO
+	}
 })
 
 process.on('uncaughtException', (err) => {
 	console.error(err);
+});
+
+client.on('messageCreate', (message) => {
+	if (message.content == "<@1023594263176564878>help" || message.content == "<@1023594263176564878> help") {
+		message.reply("Больше никакого <a:AU_Z:1067782077065478266>.");
+	}
 })
 
 client.login(token);
