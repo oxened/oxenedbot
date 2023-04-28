@@ -56,10 +56,11 @@ client.on('interactionCreate', async (interaction, message, user) => {
 		const loshped = interaction.options.getUser('user')
 		if(loshped == '530377558508699659') { 
 			await interaction.reply("Вы не можете забанить создателя сервера.");
-		} else if(loshped == '1023594263176564878') {
+		} else if(loshped == clientid) {
 			await interaction.reply("маму свою забань мудила");
+		} else {
+		await interaction.reply(`Пользователь ${interaction.options.getUser('user')} был забанен. <:ralsei_wtf:1084577747063545886> <a:AU_Z:1067782077065478266>`); 
 		}
-		await interaction.reply(`Пользователь ${interaction.options.getUser('user')} был забанен. <:ralsei_wtf:1084577747063545886> <a:AU_Z:1067782077065478266>`);
 	}
 
 	if(interaction.commandName == 'eval') {
@@ -87,7 +88,8 @@ process.on('uncaughtException', (err) => {
 });
 
 client.on('messageCreate', (message) => {
-	if (message.content == "<@1023594263176564878>help" || message.content == "<@1023594263176564878> help") {
+	let msg = message.content
+	if (msg.includes(`<@${clientid}>`)) {
 		message.reply("Больше никакого <a:AU_Z:1067782077065478266>.");
 	}
 })
