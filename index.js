@@ -20,7 +20,7 @@ const ban = new SlashCommandBuilder()
 
 const eval_ = new SlashCommandBuilder()
 	.setName("eval")
-	.setDescription("eval")
+	.setDescription("для лошар")
 	.addStringOption(option => option
 		.setName("command")
 		.setDescription("...")
@@ -29,7 +29,7 @@ const eval_ = new SlashCommandBuilder()
 const pc = new SlashCommandBuilder()
 	.setName("pc")
 	.setDescription("pointercrate")
-const cmds = [ban, eval_, pc]
+const cmds = [ban, pc, eval_]
 
 let loshara = ["1043211191067103263", "530377558508699659"]
 
@@ -44,26 +44,32 @@ client.on('ready', async () => {
 		}]
 	})
 
-  const folder = fs.readdirSync(path.join("commands"))
-  const foldersPath = path.join(__dirname, 'commands');
+    const commandsPath = path.join(__dirname, 'commands');
+    const commansFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 
-  for (const file of folder) {
-    const filePath = path.join(foldersPath, file)
+  for (const file of commansFiles) {
+    const filePath = path.join(commandsPath, file)
     const command = require(filePath)
-    commands.push(command.data.toJSON())
+    if ('data' in command && 'execute' in command) {
+        client.commands.set(command.data.name, command)
+        commands.push(command.data.toJSON())
+    } else {
+        console.log(`вы лошары, потому что ${filePath} без "data" или "execute"`)
+    }
   }
 
 	try {
 		console.log("обновление команд");
-    await client.application.commands.set(commands)
+        await client.application.commands.set(commands)
     //await client.application.commands.set(cmds)
 		console.log("обновление команд завершено :wtf2:");
-	} catch(error) { console.error(error); } 
+	} catch(error) { console.error(error); }
 })
 
 
 client.on('interactionCreate', async (interaction, message, user) => {
 	if(!interaction.isChatInputCommand()) return;
+    const cmd = interaction.client.commands.get(interaction.commandName);
 
 	if(interaction.commandName == 'ban') {
 		const loshped = interaction.options.getUser('user')
@@ -72,36 +78,34 @@ client.on('interactionCreate', async (interaction, message, user) => {
 		} else if(loshped == clientid) {
 			await interaction.reply("маму свою забань мудила");
 		} else {
-		await interaction.reply(`Пользователь ${interaction.options.getUser('user')} был забанен. <:ralsei_wtf:1084577747063545886> <a:AU_Z:1067782077065478266>`); 
+		await interaction.reply(`Пользователь ${interaction.options.getUser('user')} был забанен. <:ralsei_wtf:1084577747063545886> <a:AU_Z:1067782077065478266>`);
 		}
 	}
 
-	if(interaction.commandName == 'eval') {
-		let mamatvoya = interaction.user.id;
-		if(!loshara.includes(mamatvoya)) {
-			await interaction.reply("В иркутске есть автобусы, в которые можно сесть, и подумать, почему вы живёте в иркутске. А ведь действительно, иркутска же не существует. Погодите.");
-			return;
-		}
-		let res;
-		await interaction.deferReply();
+	// if(interaction.commandName == 'eval') {
+	// 	let mamatvoya = interaction.user.id;
+	// 	if(!loshara.includes(mamatvoya)) {
+	// 		await interaction.reply("В иркутске есть автобусы, в которые можно сесть, и подумать, почему вы живёте в иркутске. А ведь действительно, иркутска же не существует. Погодите.");
+	// 		return;
+	// 	}
+	// 	let res;
+	// 	await interaction.deferReply();
 
-		try {
-			res = await eval(interaction.options.getString('command'));
-		} catch(error) { res = error }
-		await interaction.editReply(`\`\`\`js\n${inspect(res, { depth: 0 }).slice(0, 1900)}\n\`\`\``);
-	}
+	// 	try {
+	// 		res = await eval(interaction.options.getString('command'));
+	// 	} catch(error) { res = error }
+	// 	await interaction.editReply(`\`\`\`js\n${inspect(res, { depth: 0 }).slice(0, 1900)}\n\`\`\``);
+	// }
 
-	if(interaction.commandName == 'pc') {
-        let answer = '';
-        await fetch("https://pointercrate.com/api/v2/demons/listed?limit=10").then(res => res.json()).then((top) => {
-            for (let pos = 0; pos < top.length; pos++) {
-                answer = answer + `${pos + 1}) ${top[pos].name} | Id: ${top[pos].level_id}\n`
-            }
-        })  
-        await interaction.reply(answer)
-	}
-  const cmd = client.commands.get(interaction.commandName)
-  try { cmd.execute(interaction) } catch { interaction.reply("блять.") }
+
+    // try { cmd.execute(interaction) } catch(error) { interaction.reply("блять."); console.log(error) }
+    try {
+        await cmd.execute(interaction)
+    } catch(error) {
+        interaction.reply("блять.");
+        console.log(error)
+    }
+
 })
 
 process.on('uncaughtException', (err) => {
