@@ -7,6 +7,8 @@ const { inspect }  = require('util');
 client.commands = new Collection();
 const rest = new REST({ version: '10' }).setToken(token);
 
+const commands = []
+
 const ban = new SlashCommandBuilder()
 	.setName("ban")
 	.setDescription("Забанить.")
@@ -27,7 +29,7 @@ const eval_ = new SlashCommandBuilder()
 const pc = new SlashCommandBuilder()
 	.setName("pc")
 	.setDescription("pointercrate")
-const commands = [ban, eval_, pc]
+const cmds = [ban, eval_, pc]
 
 let loshara = ["1043211191067103263", "530377558508699659"]
 
@@ -41,11 +43,22 @@ client.on('ready', async () => {
 			type: ActivityType.Playing,
 		}]
 	})
+
+  const folder = fs.readdirSync(path.join("commands"))
+  const foldersPath = path.join(__dirname, 'commands');
+
+  for (const file of folder) {
+    const filePath = path.join(foldersPath, file)
+    const command = require(filePath)
+    commands.push(command.data.toJSON())
+  }
+
 	try {
 		console.log("обновление команд");
-		await rest.put(Routes.applicationCommands(clientid), { body: commands })
+    await client.application.commands.set(commands)
+    //await client.application.commands.set(cmds)
 		console.log("обновление команд завершено :wtf2:");
-	} catch(error) { console.error(error); }
+	} catch(error) { console.error(error); } 
 })
 
 
@@ -84,9 +97,11 @@ client.on('interactionCreate', async (interaction, message, user) => {
             for (let pos = 0; pos < top.length; pos++) {
                 answer = answer + `${pos + 1}) ${top[pos].name} | Id: ${top[pos].level_id}\n`
             }
-        })
+        })  
         await interaction.reply(answer)
 	}
+  const cmd = client.commands.get(interaction.commandName)
+  try { cmd.execute(interaction) } catch { interaction.reply("блять.") }
 })
 
 process.on('uncaughtException', (err) => {
