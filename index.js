@@ -71,7 +71,7 @@ client.on('interactionCreate', async (interaction, message, user) => {
 	if(!interaction.isChatInputCommand()) return;
     const cmd = interaction.client.commands.get(interaction.commandName);
 
-	if(interaction.commandName == 'ban') {
+	/* if(interaction.commandName == 'ban') {
 		const loshped = interaction.options.getUser('user')
 		if(loshped == '530377558508699659') {
 			await interaction.reply("Вы не можете забанить создателя сервера.");
@@ -80,25 +80,7 @@ client.on('interactionCreate', async (interaction, message, user) => {
 		} else {
 		await interaction.reply(`Пользователь ${interaction.options.getUser('user')} был забанен. <:ralsei_wtf:1084577747063545886> <a:AU_Z:1067782077065478266>`);
 		}
-	}
-
-	// if(interaction.commandName == 'eval') {
-	// 	let mamatvoya = interaction.user.id;
-	// 	if(!loshara.includes(mamatvoya)) {
-	// 		await interaction.reply("В иркутске есть автобусы, в которые можно сесть, и подумать, почему вы живёте в иркутске. А ведь действительно, иркутска же не существует. Погодите.");
-	// 		return;
-	// 	}
-	// 	let res;
-	// 	await interaction.deferReply();
-
-	// 	try {
-	// 		res = await eval(interaction.options.getString('command'));
-	// 	} catch(error) { res = error }
-	// 	await interaction.editReply(`\`\`\`js\n${inspect(res, { depth: 0 }).slice(0, 1900)}\n\`\`\``);
-	// }
-
-
-    // try { cmd.execute(interaction) } catch(error) { interaction.reply("блять."); console.log(error) }
+	} */
     try {
         await cmd.execute(interaction)
     } catch(error) {
