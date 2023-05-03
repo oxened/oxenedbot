@@ -28,7 +28,7 @@ client.on('ready', async () => {
         client.commands.set(command.data.name, command)
         commands.push(command.data.toJSON())
     } else {
-        console.log(`вы лошары, потому что ${filePath} без "data" или "execute"`)
+        console.log(`в ${filePath} нет "data" или "execute"`)
     }
   }
 
