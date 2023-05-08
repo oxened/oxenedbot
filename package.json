@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "discord.js": "^14.9.0"
+  },
+  "scripts": {
+    "bot": "npx tsx index.js"
   }
 }
