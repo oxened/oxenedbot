@@ -26,7 +26,7 @@ const path = require('node:path');
 const { inspect } = require('util');
 client.commands = new Collection();
 const rest = new REST({ version: '10' }).setToken(token);
-
+let commands = [];
 let loshara = ['1043211191067103263', '530377558508699659'];
 
 client.on('ready', async () => {
@@ -48,13 +48,14 @@ client.on('ready', async () => {
     }
   }
 
-	try {
-		console.log("обновление команд");
-        await client.application.commands.set(client.commands.map(c => c.data));
-		console.log("обновление команд завершено :wtf2:");
-	} catch(error) { console.error(error); }
-})
-
+  try {
+    console.log('обновление команд');
+    await client.application.commands.set(client.commands.map((c) => c.data));
+    console.log('обновление команд завершено :wtf2:');
+  } catch (error) {
+    console.error(error);
+  }
+});
 
 client.on('interactionCreate', async (interaction, message, user) => {
   if (!interaction.isChatInputCommand()) return;
