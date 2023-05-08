@@ -7,7 +7,7 @@ const {
   ActivityType,
   SlashCommandBuilder,
 } = require('discord.js');
-const { token, clientid, bingc } = require('./config.json');
+const { token, clientid } = require('./config.json');
 
 const client = new Client({
   intents: [
