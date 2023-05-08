@@ -1,9 +1,11 @@
 {
   "dependencies": {
-    "@discordjs/builders": "^1.6.3",
-    "bing-chat": "^0.2.3",
     "discord.js": "^14.9.0",
+    "@discordjs/builders": "^1.6.3",
     "dotenv-safe": "^8.2.0",
     "ora-promise": "^1.0.0"
+  },
+  "scripts": {
+    "bot": "npx tsx index.js"
   }
 }
