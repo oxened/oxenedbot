@@ -1,8 +1,7 @@
 const { Client, GatewayIntentBits, Collection, Events, REST, Routes, ActivityType, SlashCommandBuilder } = require('discord.js')
 const { token, clientid } = require("./config.json")
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
-  presence: { status: "idle", activities: [{ name: "😭", type: ActivityType.Playing}]}});
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent], presence: { status: "idle", activities: [{ name: "😭", type: ActivityType.Playing}]}});
 
 const fs = require('node:fs');
 const path = require('node:path');
