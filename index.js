@@ -48,14 +48,13 @@ client.on('ready', async () => {
     }
   }
 
-  try {
-    console.log('обновление команд');
-    await client.application.commands.set(commands);
-    console.log('обновление команд завершено :wtf2:');
-  } catch (error) {
-    console.error(error);
-  }
-});
+	try {
+		console.log("обновление команд");
+        await client.application.commands.set(client.commands.map(c => c.data));
+		console.log("обновление команд завершено :wtf2:");
+	} catch(error) { console.error(error); }
+})
+
 
 client.on('interactionCreate', async (interaction, message, user) => {
   if (!interaction.isChatInputCommand()) return;
