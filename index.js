@@ -10,7 +10,6 @@ client.commands = new Collection();
 const rest = new REST({ version: '10' }).setToken(token);
 
 
-
 let loshara = ["1043211191067103263", "530377558508699659"]
 
 client.on('ready', async () => {
