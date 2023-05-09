@@ -1,6 +1,6 @@
 ### oxenedbot
 
-# config.json
+# /commands/src/config.json
 ```json
 {
         "token": "токен бота",
