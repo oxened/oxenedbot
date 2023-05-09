@@ -24,12 +24,10 @@ const path = require('node:path');
 const { inspect } = require('util');
 client.commands = new Collection();
 const rest = new REST({ version: '10' }).setToken(token);
-
-let loshara = ['1043211191067103263', '530377558508699659'];
+const loshara = ['1043211191067103263', '530377558508699659'];
 
 client.on('ready', async () => {
     console.log(client.user.tag);
-
     const commandsPath = path.join(__dirname, 'commands');
     // console.log(commandsPath)
     fs.readdirSync(commandsPath).forEach((folder) => {
