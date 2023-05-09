@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("discord.js")
-const { clientid } = require("../config.json")
+const { clientid } = require("../src/config.json")
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("ban")
