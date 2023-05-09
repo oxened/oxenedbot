@@ -32,7 +32,6 @@ let loshara = ["1043211191067103263", "530377558508699659"];
 client.on("ready", async () => {
     console.log(client.user.tag);
 
-
     const commandsPath = path.join(__dirname, "commands");
     // console.log(commandsPath)
     fs.readdirSync(commandsPath).forEach((folder) => {
