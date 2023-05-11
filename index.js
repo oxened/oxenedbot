@@ -2,8 +2,6 @@ const {
     Client,
     GatewayIntentBits,
     Collection,
-    Events,
-    REST,
     ActivityType,
     SlashCommandBuilder,
 } = require("discord.js");
@@ -14,7 +12,6 @@ const client = new Client({
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.MessageContent,
-        GatewayIntentBits.GuildPresences,
     ],
     presence: {
         status: "idle",
