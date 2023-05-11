@@ -12,6 +12,7 @@ const client = new Client({
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.MessageContent,
+        GatewayIntentBits.GuildPresences,
     ],
     presence: {
         status: "idle",
@@ -20,10 +21,7 @@ const client = new Client({
 });
 const fs = require("node:fs");
 const path = require("node:path");
-const {inspect} = require("util");
 client.commands = new Collection();
-const rest = new REST({version: "10"}).setToken(token);
-const loshara = ["1043211191067103263", "530377558508699659"];
 
 client.on("ready", async () => {
     console.log(client.user.tag);
