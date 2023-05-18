@@ -32,10 +32,10 @@ client.on('ready', async () => {
     const commandsFiles = fs
       .readdirSync(cP)
       .filter((file) => file.endsWith('js'))
-    // console.log(`${commandsPath}\\${cP.split('\\')[1]}`)
+    // console.log(`${commandsPath}/${cP.split('/')[1]}`)
     for (const file of commandsFiles) {
       const filePath = path.join(
-                `${commandsPath}\\${cP.split('\\')[1]}`,
+                `${commandsPath}/${cP.split('/')[1]}`,
                 file
       )
       console.log(file.slice(0, -3))
