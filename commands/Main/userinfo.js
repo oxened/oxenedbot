@@ -89,7 +89,7 @@ module.exports = {
                 user = interaction.options.getString('github-user')
                 const User = await (await fetch(`https://api.github.com/users/${user}`)).json();
                 
-                console.log(User)
+                //console.log(User)
                 if (User.message) {
                     return interaction.reply(`Пользователь \`${user}\` не найден`)
                 } else {
