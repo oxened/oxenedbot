@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const fetch = require('node-fetch');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -84,43 +85,46 @@ module.exports = {
 
                 break;
 
-            case 'github':
+            case 'github': {
                 user = interaction.options.getString('github-user')
-                fetch(`https://api.github.com/users/${user}`)
-                    .then(res => res.json())
-                    .then(async (User) => {
-                        console.log(User)
-                        if (User.message) {
-                            return await interaction.reply(`Пользователь \`${user}\` не найден`)
-                        } else {
-                            embed = new EmbedBuilder()
-                                .setColor('#1e1f22')
-                                .setAuthor({
-                                    name: User.login,
-                                    iconURL: `https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png`
-                                })
-                                .setThumbnail(User.avatar_url)
-                                .setDescription(User.bio)
-                                .setTitle("User Info")
-                                .addFields(
-                                    {
-                                        name: 'Ифнормация об аккаунте',
-                                        value: `Локация: \`${User.location ?? 'Не указано'}\`\n Репозитории: \`${User.public_repos}\`\n Регистрация: \`${new Date(User.created_at).toLocaleDateString()}\``,
-                                        inline: true
-                                    },
-                                    {
-                                        name: 'Информация о пользователе',
-                                        value: `Id: \`${User.id}\`\n Имя: \`${User.name}\``,
-                                        inline: true
-                                    }
-                                )
-                                .setFooter({text: User.html_url})
+                const User = await (await fetch(`https://api.github.com/users/${user}`)).json();
+                
+                console.log(User)
+                if (User.message) {
+                    return await interaction.reply(`Пользователь \`${user}\` не найден`)
+                } else {
+                    embed = new EmbedBuilder()
+                        .setColor('#1e1f22')
+                        .setAuthor({
+                            name: User.login,
+                            iconURL: `https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png`
+                        })
+                        .setThumbnail(User.avatar_url)
+                        .setDescription(User.bio)
+                        .setTitle("User Info")
+                        .addFields(
+                            {
+                                name: 'Ифнормация об аккаунте',
+                                value: `Локация: \`${User.location ?? 'Не указано'}\`\n Репозитории: \`${User.public_repos}\`\n Регистрация: \`${new Date(User.created_at).toLocaleDateString()}\``,
+                                inline: true
+                            },
+                            {
+                                name: 'Информация о пользователе',
+                                value: `Id: \`${User.id}\`\n Имя: \`${User.name}\``,
+                                inline: true
+                            }
+                        )
+                        .setFooter({text: User.html_url});
 
-                            await interaction.reply({embeds: [embed]})
-                        }
-                    })
+                    interaction.reply({
+                        embeds: [
+                            embed
+                        ]
+                    });
+                }
 
                 break;
+            }
         }
     }
 };

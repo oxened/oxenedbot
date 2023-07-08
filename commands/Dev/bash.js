@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require("discord.js");
 const { execSync } = require("node:child_process");
 const loshara = ["1043211191067103263", "530377558508699659"];
+
 // НЕ ДОДЕЛАНО
 // TODO сделать ошибки и пофиксить на винде (и ещё чтоб цвета удаляло, желательно)
 module.exports = {

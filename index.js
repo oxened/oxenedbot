@@ -49,21 +49,23 @@ client.on("ready", async () => {
                 );
                 command = require(filePath);
             }
+            
             console.log(file.slice(0, -3));
-            if ("data" in command && "execute" in command) {
+            
+            if (command.data && command.execute) {
                 client.commands.set(command.data.name, command);
             } else {
-                console.log(`в ${filePath} нет "data" или "execute"`);
+                console.log(`В ${filePath} не указан "data" или "execute"`);
             }
         }
     });
 
     try {
-        console.log("обновление команд");
+        console.log("Обновление команд");
         await client.application.commands.set(
             client.commands.map((c) => c.data)
         );
-        console.log("обновление команд завершено :wtf2:");
+        console.log("Обновление команд завершено :wtf2:");
     } catch (error) {
         console.error(error);
     }
