@@ -81,7 +81,7 @@ module.exports = {
                         }
                     )
                     .setFooter({text: `Id: ${user.id}`});
-                await interaction.reply({embeds: [embed]});
+                interaction.reply({embeds: [embed]});
 
                 break;
 
@@ -91,7 +91,7 @@ module.exports = {
                 
                 console.log(User)
                 if (User.message) {
-                    return await interaction.reply(`Пользователь \`${user}\` не найден`)
+                    return interaction.reply(`Пользователь \`${user}\` не найден`)
                 } else {
                     embed = new EmbedBuilder()
                         .setColor('#1e1f22')
