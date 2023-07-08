@@ -5,7 +5,7 @@ const {
     ActivityType,
     SlashCommandBuilder,
 } = require("discord.js");
-const { token, clientid } = require("./commands/src/config.json");
+const { token, clientId } = require("./commands/src/config.json");
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -86,7 +86,7 @@ process.on("uncaughtException", (err) => {
 
 client.on("messageCreate", (message) => {
     const msg = message.content;
-    if (msg.includes(`<@${clientid}>`)) {
+    if (msg.includes(`<@${clientId}>`)) {
         message.reply("Больше никакого <a:AU_Z:1067782077065478266>.");
     }
 });
