@@ -12,11 +12,17 @@ module.exports = {
             option.setName("command").setDescription("?").setRequired(true)
         ),
     async execute(interaction) {
+        await interaction.deferReply();
         if (!loshara.includes(interaction.user.id)) {
-            interaction.reply("🙄");
+            interaction.editReply("🙄");
             return;
         }
-        const res = execSync(interaction.options.getString("command")).slice(0, 1900);
-        interaction.reply(` \`\`\`sh\n${res}\`\`\` `);
+        let res = "a"
+        try {
+            res = execSync(interaction.options.getString("command")).slice(0, 1900);
+        } catch {
+            res = "вы еблан"
+        }
+        interaction.editReply(` \`\`\`sh\n${res}\`\`\` `);
     },
 };

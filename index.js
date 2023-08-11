@@ -44,7 +44,7 @@ client.on("ready", async () => {
                 command = require(filePath);
             } catch {
                 filePath = path.join(
-                    `${commandsPath}\\${cP.split("\\")[1]}`,
+                    `${commandsPath}/${cP.split("/")[1]}`,
                     file
                 );
                 command = require(filePath);
