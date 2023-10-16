@@ -5,7 +5,7 @@ const loshara = ['1043211191067103263', '530377558508699659', '49368179986464769
 module.exports = {
     data: new SlashCommandBuilder()
     .setName('eval')
-    .setDescription('для лошар')
+    .setDescription('для лучших людей')
     .addStringOption((option) => option.setName('command').setDescription('...').setRequired(true)),
   async execute (interaction) {
     const mamatvoya = interaction.user.id
