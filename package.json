@@ -4,7 +4,8 @@
     "discord.js": "^14.11.0",
     "dotenv-safe": "^8.2.0",
     "node-fetch": "^2.6.12",
-    "ora-promise": "^1.0.0"
+    "ora-promise": "^1.0.0",
+    "googletrans": "^1.0.2"
   },
   "scripts": {
     "bot": "npx tsx index.js"
