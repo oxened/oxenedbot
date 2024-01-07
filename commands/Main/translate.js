@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
-const tr = require('googletrans').default;
+//const tr = require('googletrans').default;
 
 module.exports = {
     cooldown: 3,
@@ -31,7 +31,7 @@ module.exports = {
         .setRequired(true)
     ),
     async execute(interaction) {
-        await interaction.deferReply();
+        /*await interaction.deferReply();
         lang = interaction.options.getString('язык')
         text = interaction.options.getString('текст')
         
@@ -50,6 +50,6 @@ module.exports = {
           },
           function(error) {
             interaction.editReply(`Ошибка: \`\`\`bash\n${error}\`\`\``);
-          })
+          })*/
     },
 };
