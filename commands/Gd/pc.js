@@ -7,7 +7,7 @@ module.exports = {
         .setName("pc")
         .setDescription("Список первых 10-ти демонов из PointerCrate"),
     async execute(interaction) {
-        // This NOT works because of cloudflare
+        // This DOESN'T work because of cloudflare
         const top = await (await fetch("https://pointercrate.com/api/v2/demons/listed?limit=10")).json();
         let answer = "";
         
